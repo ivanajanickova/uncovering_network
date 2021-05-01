@@ -1,0 +1,123 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 500px;
+            height: 500px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+        #config {
+            float: left;
+            width: 400px;
+            height: 600px;
+        }
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<div id = "config"></div>
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"color": "blue", "id": "0000950123", "label": "0000950123", "shape": "dot"}, {"color": "blue", "id": "0001166588", "label": "0001166588", "shape": "dot"}, {"color": "red", "id": "GILEAD SCIENCES INC", "label": "GILEAD SCIENCES INC", "shape": "dot"}, {"color": "blue", "id": "0001390777", "label": "0001390777", "shape": "dot"}, {"color": "red", "id": "CMC MATERIALS INC", "label": "CMC MATERIALS INC", "shape": "dot"}, {"color": "blue", "id": "0001086364", "label": "0001086364", "shape": "dot"}, {"color": "red", "id": "HILTON WORLDWIDE HLDGS INC", "label": "HILTON WORLDWIDE HLDGS INC", "shape": "dot"}, {"color": "blue", "id": "0001341748", "label": "0001341748", "shape": "dot"}, {"color": "red", "id": "PFIZER INC", "label": "PFIZER INC", "shape": "dot"}, {"color": "blue", "id": "0001779453", "label": "0001779453", "shape": "dot"}, {"color": "red", "id": "FACEBOOK INC", "label": "FACEBOOK INC", "shape": "dot"}, {"color": "blue", "id": "0001725547", "label": "0001725547", "shape": "dot"}, {"color": "red", "id": "KINDER MORGAN INC DEL", "label": "KINDER MORGAN INC DEL", "shape": "dot"}, {"color": "blue", "id": "0001654954", "label": "0001654954", "shape": "dot"}, {"color": "blue", "id": "0000829108", "label": "0000829108", "shape": "dot"}, {"color": "blue", "id": "0000769993", "label": "0000769993", "shape": "dot"}, {"color": "blue", "id": "0000873630", "label": "0000873630", "shape": "dot"}, {"color": "blue", "id": "0001580642", "label": "0001580642", "shape": "dot"}, {"color": "red", "id": "ALPHABET INC", "label": "ALPHABET INC", "shape": "dot"}, {"color": "blue", "id": "0001841616", "label": "0001841616", "shape": "dot"}, {"color": "red", "id": "PAYPAL HLDGS INC COM", "label": "PAYPAL HLDGS INC COM", "shape": "dot"}, {"color": "blue", "id": "0000038777", "label": "0000038777", "shape": "dot"}, {"color": "red", "id": "MID-AMER APT CMNTYS INC", "label": "MID-AMER APT CMNTYS INC", "shape": "dot"}, {"color": "blue", "id": "0001545545", "label": "0001545545", "shape": "dot"}, {"color": "red", "id": "JD.COM INC", "label": "JD.COM INC", "shape": "dot"}, {"color": "blue", "id": "0001104659", "label": "0001104659", "shape": "dot"}, {"color": "blue", "id": "0001126328", "label": "0001126328", "shape": "dot"}, {"color": "blue", "id": "0001137774", "label": "0001137774", "shape": "dot"}, {"color": "blue", "id": "0001606587", "label": "0001606587", "shape": "dot"}, {"color": "blue", "id": "0000870156", "label": "0000870156", "shape": "dot"}, {"color": "blue", "id": "0001172036", "label": "0001172036", "shape": "dot"}, {"color": "red", "id": "CITIGROUP INC", "label": "CITIGROUP INC", "shape": "dot"}, {"color": "blue", "id": "0001214659", "label": "0001214659", "shape": "dot"}, {"color": "red", "id": "FIVE BELOW INC", "label": "FIVE BELOW INC", "shape": "dot"}, {"color": "blue", "id": "0000930413", "label": "0000930413", "shape": "dot"}, {"color": "blue", "id": "0000072971", "label": "0000072971", "shape": "dot"}, {"color": "blue", "id": "0000947484", "label": "0000947484", "shape": "dot"}, {"color": "red", "id": "ISHARES TR", "label": "ISHARES TR", "shape": "dot"}, {"color": "red", "id": "INTELLIA THERAPEUTICS INC", "label": "INTELLIA THERAPEUTICS INC", "shape": "dot"}, {"color": "red", "id": "CITRIX SYSTEMS INC", "label": "CITRIX SYSTEMS INC", "shape": "dot"}, {"color": "red", "id": "MEDIFAST INC", "label": "MEDIFAST INC", "shape": "dot"}, {"color": "red", "id": "VANGUARD FTSE EMERGING MARKETS ETF", "label": "VANGUARD FTSE EMERGING MARKETS ETF", "shape": "dot"}, {"color": "red", "id": "AUTOZONE INC", "label": "AUTOZONE INC", "shape": "dot"}, {"color": "red", "id": "ISHARES RUSSELL MID CAP ETF", "label": "ISHARES RUSSELL MID CAP ETF", "shape": "dot"}, {"color": "red", "id": "PROS HOLDINGS INC", "label": "PROS HOLDINGS INC", "shape": "dot"}, {"color": "red", "id": "CHINOOK THERAPEUTICS INC", "label": "CHINOOK THERAPEUTICS INC", "shape": "dot"}, {"color": "red", "id": "SEAGEN INC", "label": "SEAGEN INC", "shape": "dot"}, {"color": "red", "id": "VELODYNE LIDAR INC", "label": "VELODYNE LIDAR INC", "shape": "dot"}, {"color": "red", "id": "PINDUODUO INC", "label": "PINDUODUO INC", "shape": "dot"}, {"color": "red", "id": "DISNEY WALT CO", "label": "DISNEY WALT CO", "shape": "dot"}, {"color": "red", "id": "SCHWAB STRATEGIC TR", "label": "SCHWAB STRATEGIC TR", "shape": "dot"}, {"color": "red", "id": "NETFLIX INC", "label": "NETFLIX INC", "shape": "dot"}, {"color": "red", "id": "ISHARES GOLD TRUST", "label": "ISHARES GOLD TRUST", "shape": "dot"}, {"color": "red", "id": "BOEING CO", "label": "BOEING CO", "shape": "dot"}, {"color": "red", "id": "PAYPAL HLDGS INC", "label": "PAYPAL HLDGS INC", "shape": "dot"}, {"color": "red", "id": "CHARTER COMMUNICATIONS INC N", "label": "CHARTER COMMUNICATIONS INC N", "shape": "dot"}, {"color": "red", "id": "MICROSOFT CORP", "label": "MICROSOFT CORP", "shape": "dot"}, {"color": "red", "id": "PEPSICO INC", "label": "PEPSICO INC", "shape": "dot"}, {"color": "red", "id": "INVESCO QQQ TRUST", "label": "INVESCO QQQ TRUST", "shape": "dot"}, {"color": "red", "id": "SPDR S\u0026P 500 ETF", "label": "SPDR S\u0026P 500 ETF", "shape": "dot"}, {"color": "red", "id": "VANGUARD S\u0026P 500 ETF", "label": "VANGUARD S\u0026P 500 ETF", "shape": "dot"}, {"color": "red", "id": "AMAZON COM INC", "label": "AMAZON COM INC", "shape": "dot"}, {"color": "red", "id": "TWITTER INC", "label": "TWITTER INC", "shape": "dot"}, {"color": "red", "id": "KEURIG DR PEPPER INC", "label": "KEURIG DR PEPPER INC", "shape": "dot"}]);
+        edges = new vis.DataSet([{"from": "0000950123", "to": "GILEAD SCIENCES INC"}, {"from": "0001166588", "to": "GILEAD SCIENCES INC"}, {"from": "0000950123", "to": "CMC MATERIALS INC"}, {"from": "0001390777", "to": "CMC MATERIALS INC"}, {"from": "0000950123", "to": "HILTON WORLDWIDE HLDGS INC"}, {"from": "0001086364", "to": "HILTON WORLDWIDE HLDGS INC"}, {"from": "0000950123", "to": "PFIZER INC"}, {"from": "0001341748", "to": "PFIZER INC"}, {"from": "0000950123", "to": "FACEBOOK INC"}, {"from": "0001779453", "to": "FACEBOOK INC"}, {"from": "0000950123", "to": "KINDER MORGAN INC DEL"}, {"from": "0001725547", "to": "KINDER MORGAN INC DEL"}, {"from": "0001654954", "to": "KINDER MORGAN INC DEL"}, {"from": "0000829108", "to": "HILTON WORLDWIDE HLDGS INC"}, {"from": "0000769993", "to": "HILTON WORLDWIDE HLDGS INC"}, {"from": "0000873630", "to": "HILTON WORLDWIDE HLDGS INC"}, {"from": "0000950123", "to": "ALPHABET INC"}, {"from": "0001580642", "to": "ALPHABET INC"}, {"from": "0000950123", "to": "PAYPAL HLDGS INC COM"}, {"from": "0001841616", "to": "PAYPAL HLDGS INC COM"}, {"from": "0000950123", "to": "MID-AMER APT CMNTYS INC"}, {"from": "0000038777", "to": "MID-AMER APT CMNTYS INC"}, {"from": "0000950123", "to": "JD.COM INC"}, {"from": "0001545545", "to": "JD.COM INC"}, {"from": "0001104659", "to": "HILTON WORLDWIDE HLDGS INC"}, {"from": "0001126328", "to": "HILTON WORLDWIDE HLDGS INC"}, {"from": "0001137774", "to": "HILTON WORLDWIDE HLDGS INC"}, {"from": "0001606587", "to": "GILEAD SCIENCES INC"}, {"from": "0000870156", "to": "HILTON WORLDWIDE HLDGS INC"}, {"from": "0000950123", "to": "CITIGROUP INC"}, {"from": "0001172036", "to": "CITIGROUP INC"}, {"from": "0000950123", "to": "FIVE BELOW INC"}, {"from": "0001214659", "to": "FIVE BELOW INC"}, {"from": "0000930413", "to": "GILEAD SCIENCES INC"}, {"from": "0000072971", "to": "HILTON WORLDWIDE HLDGS INC"}, {"from": "0000947484", "to": "ISHARES TR"}, {"from": "0001086364", "to": "ISHARES TR"}, {"from": "0001779453", "to": "ISHARES TR"}, {"from": "0001725547", "to": "ISHARES TR"}, {"from": "0001654954", "to": "ISHARES TR"}, {"from": "0000829108", "to": "ISHARES TR"}, {"from": "0000769993", "to": "ISHARES TR"}, {"from": "0000873630", "to": "ISHARES TR"}, {"from": "0001580642", "to": "ISHARES TR"}, {"from": "0001104659", "to": "ISHARES TR"}, {"from": "0001126328", "to": "ISHARES TR"}, {"from": "0001137774", "to": "ISHARES TR"}, {"from": "0000870156", "to": "ISHARES TR"}, {"from": "0001214659", "to": "ISHARES TR"}, {"from": "0000072971", "to": "ISHARES TR"}, {"from": "0001166588", "to": "INTELLIA THERAPEUTICS INC"}, {"from": "0001086364", "to": "INTELLIA THERAPEUTICS INC"}, {"from": "0001166588", "to": "CITRIX SYSTEMS INC"}, {"from": "0001341748", "to": "CITRIX SYSTEMS INC"}, {"from": "0001166588", "to": "FACEBOOK INC"}, {"from": "0001166588", "to": "ALPHABET INC"}, {"from": "0001725547", "to": "ALPHABET INC"}, {"from": "0001166588", "to": "PFIZER INC"}, {"from": "0001654954", "to": "PFIZER INC"}, {"from": "0000829108", "to": "INTELLIA THERAPEUTICS INC"}, {"from": "0000769993", "to": "INTELLIA THERAPEUTICS INC"}, {"from": "0001166588", "to": "MEDIFAST INC"}, {"from": "0000873630", "to": "MEDIFAST INC"}, {"from": "0001166588", "to": "VANGUARD FTSE EMERGING MARKETS ETF"}, {"from": "0001841616", "to": "VANGUARD FTSE EMERGING MARKETS ETF"}, {"from": "0000038777", "to": "ALPHABET INC"}, {"from": "0001166588", "to": "AUTOZONE INC"}, {"from": "0001545545", "to": "AUTOZONE INC"}, {"from": "0001104659", "to": "INTELLIA THERAPEUTICS INC"}, {"from": "0001126328", "to": "INTELLIA THERAPEUTICS INC"}, {"from": "0001137774", "to": "INTELLIA THERAPEUTICS INC"}, {"from": "0001606587", "to": "CITRIX SYSTEMS INC"}, {"from": "0000870156", "to": "MEDIFAST INC"}, {"from": "0001166588", "to": "ISHARES RUSSELL MID CAP ETF"}, {"from": "0001172036", "to": "ISHARES RUSSELL MID CAP ETF"}, {"from": "0001166588", "to": "PROS HOLDINGS INC"}, {"from": "0001214659", "to": "PROS HOLDINGS INC"}, {"from": "0000072971", "to": "INTELLIA THERAPEUTICS INC"}, {"from": "0001390777", "to": "CHINOOK THERAPEUTICS INC"}, {"from": "0001086364", "to": "CHINOOK THERAPEUTICS INC"}, {"from": "0001390777", "to": "SEAGEN INC"}, {"from": "0000829108", "to": "SEAGEN INC"}, {"from": "0000769993", "to": "CHINOOK THERAPEUTICS INC"}, {"from": "0000873630", "to": "SEAGEN INC"}, {"from": "0001390777", "to": "VELODYNE LIDAR INC"}, {"from": "0001545545", "to": "VELODYNE LIDAR INC"}, {"from": "0001104659", "to": "CHINOOK THERAPEUTICS INC"}, {"from": "0001126328", "to": "CMC MATERIALS INC"}, {"from": "0001137774", "to": "CMC MATERIALS INC"}, {"from": "0000870156", "to": "CMC MATERIALS INC"}, {"from": "0000072971", "to": "CHINOOK THERAPEUTICS INC"}, {"from": "0001086364", "to": "PFIZER INC"}, {"from": "0001086364", "to": "FACEBOOK INC"}, {"from": "0001086364", "to": "KINDER MORGAN INC DEL"}, {"from": "0001086364", "to": "ALPHABET INC"}, {"from": "0001086364", "to": "MID-AMER APT CMNTYS INC"}, {"from": "0001086364", "to": "PINDUODUO INC"}, {"from": "0001545545", "to": "PINDUODUO INC"}, {"from": "0001086364", "to": "GILEAD SCIENCES INC"}, {"from": "0001086364", "to": "CITIGROUP INC"}, {"from": "0001086364", "to": "PROS HOLDINGS INC"}, {"from": "0001341748", "to": "FACEBOOK INC"}, {"from": "0001341748", "to": "ALPHABET INC"}, {"from": "0001654954", "to": "ALPHABET INC"}, {"from": "0000829108", "to": "PFIZER INC"}, {"from": "0000769993", "to": "PFIZER INC"}, {"from": "0000873630", "to": "PFIZER INC"}, {"from": "0001341748", "to": "AUTOZONE INC"}, {"from": "0001104659", "to": "PFIZER INC"}, {"from": "0001126328", "to": "PFIZER INC"}, {"from": "0001137774", "to": "PFIZER INC"}, {"from": "0001606587", "to": "ALPHABET INC"}, {"from": "0000870156", "to": "PFIZER INC"}, {"from": "0001172036", "to": "PFIZER INC"}, {"from": "0001341748", "to": "DISNEY WALT CO"}, {"from": "0001214659", "to": "DISNEY WALT CO"}, {"from": "0000930413", "to": "PFIZER INC"}, {"from": "0000072971", "to": "PFIZER INC"}, {"from": "0001725547", "to": "FACEBOOK INC"}, {"from": "0001654954", "to": "FACEBOOK INC"}, {"from": "0000829108", "to": "FACEBOOK INC"}, {"from": "0000769993", "to": "FACEBOOK INC"}, {"from": "0000873630", "to": "FACEBOOK INC"}, {"from": "0001779453", "to": "SCHWAB STRATEGIC TR"}, {"from": "0001580642", "to": "SCHWAB STRATEGIC TR"}, {"from": "0000038777", "to": "FACEBOOK INC"}, {"from": "0001779453", "to": "JD.COM INC"}, {"from": "0001104659", "to": "FACEBOOK INC"}, {"from": "0001126328", "to": "FACEBOOK INC"}, {"from": "0001137774", "to": "FACEBOOK INC"}, {"from": "0001606587", "to": "FACEBOOK INC"}, {"from": "0000870156", "to": "FACEBOOK INC"}, {"from": "0001779453", "to": "NETFLIX INC"}, {"from": "0001172036", "to": "NETFLIX INC"}, {"from": "0001779453", "to": "ISHARES GOLD TRUST"}, {"from": "0000930413", "to": "ISHARES GOLD TRUST"}, {"from": "0000072971", "to": "FACEBOOK INC"}, {"from": "0000829108", "to": "KINDER MORGAN INC DEL"}, {"from": "0000769993", "to": "KINDER MORGAN INC DEL"}, {"from": "0000873630", "to": "KINDER MORGAN INC DEL"}, {"from": "0001725547", "to": "BOEING CO"}, {"from": "0001545545", "to": "BOEING CO"}, {"from": "0001104659", "to": "KINDER MORGAN INC DEL"}, {"from": "0001126328", "to": "KINDER MORGAN INC DEL"}, {"from": "0001137774", "to": "KINDER MORGAN INC DEL"}, {"from": "0000870156", "to": "KINDER MORGAN INC DEL"}, {"from": "0001725547", "to": "PFIZER INC"}, {"from": "0001725547", "to": "PAYPAL HLDGS INC"}, {"from": "0001214659", "to": "PAYPAL HLDGS INC"}, {"from": "0000072971", "to": "KINDER MORGAN INC DEL"}, {"from": "0001654954", "to": "BOEING CO"}, {"from": "0001654954", "to": "PAYPAL HLDGS INC"}, {"from": "0000829108", "to": "ALPHABET INC"}, {"from": "0000829108", "to": "MID-AMER APT CMNTYS INC"}, {"from": "0000829108", "to": "PINDUODUO INC"}, {"from": "0000829108", "to": "GILEAD SCIENCES INC"}, {"from": "0000829108", "to": "CITIGROUP INC"}, {"from": "0000829108", "to": "CHARTER COMMUNICATIONS INC N"}, {"from": "0001214659", "to": "CHARTER COMMUNICATIONS INC N"}, {"from": "0000769993", "to": "ALPHABET INC"}, {"from": "0000769993", "to": "MID-AMER APT CMNTYS INC"}, {"from": "0000769993", "to": "PINDUODUO INC"}, {"from": "0000769993", "to": "GILEAD SCIENCES INC"}, {"from": "0000769993", "to": "CITIGROUP INC"}, {"from": "0000769993", "to": "PROS HOLDINGS INC"}, {"from": "0000873630", "to": "ALPHABET INC"}, {"from": "0000873630", "to": "MID-AMER APT CMNTYS INC"}, {"from": "0000873630", "to": "PINDUODUO INC"}, {"from": "0000873630", "to": "GILEAD SCIENCES INC"}, {"from": "0000873630", "to": "CITIGROUP INC"}, {"from": "0000873630", "to": "CHARTER COMMUNICATIONS INC N"}, {"from": "0001580642", "to": "MICROSOFT CORP"}, {"from": "0001545545", "to": "MICROSOFT CORP"}, {"from": "0001104659", "to": "ALPHABET INC"}, {"from": "0001126328", "to": "ALPHABET INC"}, {"from": "0001137774", "to": "ALPHABET INC"}, {"from": "0000870156", "to": "ALPHABET INC"}, {"from": "0001580642", "to": "PFIZER INC"}, {"from": "0001580642", "to": "PEPSICO INC"}, {"from": "0000930413", "to": "PEPSICO INC"}, {"from": "0000072971", "to": "ALPHABET INC"}, {"from": "0001841616", "to": "INVESCO QQQ TRUST"}, {"from": "0001606587", "to": "INVESCO QQQ TRUST"}, {"from": "0001841616", "to": "SPDR S\u0026P 500 ETF"}, {"from": "0001172036", "to": "SPDR S\u0026P 500 ETF"}, {"from": "0001841616", "to": "VANGUARD S\u0026P 500 ETF"}, {"from": "0000930413", "to": "VANGUARD S\u0026P 500 ETF"}, {"from": "0000038777", "to": "AUTOZONE INC"}, {"from": "0001104659", "to": "MID-AMER APT CMNTYS INC"}, {"from": "0001126328", "to": "MID-AMER APT CMNTYS INC"}, {"from": "0001137774", "to": "MID-AMER APT CMNTYS INC"}, {"from": "0000870156", "to": "MID-AMER APT CMNTYS INC"}, {"from": "0000038777", "to": "CITIGROUP INC"}, {"from": "0000038777", "to": "AMAZON COM INC"}, {"from": "0001214659", "to": "AMAZON COM INC"}, {"from": "0000038777", "to": "PFIZER INC"}, {"from": "0000072971", "to": "MID-AMER APT CMNTYS INC"}, {"from": "0001104659", "to": "PINDUODUO INC"}, {"from": "0001126328", "to": "PINDUODUO INC"}, {"from": "0001137774", "to": "JD.COM INC"}, {"from": "0001606587", "to": "BOEING CO"}, {"from": "0000870156", "to": "JD.COM INC"}, {"from": "0001172036", "to": "MICROSOFT CORP"}, {"from": "0001545545", "to": "AMAZON COM INC"}, {"from": "0000930413", "to": "MICROSOFT CORP"}, {"from": "0000072971", "to": "PINDUODUO INC"}, {"from": "0001104659", "to": "GILEAD SCIENCES INC"}, {"from": "0001104659", "to": "CITIGROUP INC"}, {"from": "0001104659", "to": "PROS HOLDINGS INC"}, {"from": "0001126328", "to": "GILEAD SCIENCES INC"}, {"from": "0001126328", "to": "CITIGROUP INC"}, {"from": "0001126328", "to": "PROS HOLDINGS INC"}, {"from": "0001137774", "to": "GILEAD SCIENCES INC"}, {"from": "0001137774", "to": "CITIGROUP INC"}, {"from": "0001137774", "to": "PROS HOLDINGS INC"}, {"from": "0000870156", "to": "GILEAD SCIENCES INC"}, {"from": "0001606587", "to": "PFIZER INC"}, {"from": "0001606587", "to": "TWITTER INC"}, {"from": "0001214659", "to": "TWITTER INC"}, {"from": "0000072971", "to": "GILEAD SCIENCES INC"}, {"from": "0000870156", "to": "CITIGROUP INC"}, {"from": "0000870156", "to": "CHARTER COMMUNICATIONS INC N"}, {"from": "0000072971", "to": "CITIGROUP INC"}, {"from": "0001214659", "to": "KEURIG DR PEPPER INC"}, {"from": "0000930413", "to": "KEURIG DR PEPPER INC"}, {"from": "0000072971", "to": "PROS HOLDINGS INC"}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": true,
+        "filter": [
+            "physics"
+        ]
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+        // if this network requires displaying the configure window,
+        // put it in its div
+        options.configure["container"] = document.getElementById("config");
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
