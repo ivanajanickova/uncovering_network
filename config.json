@@ -8,19 +8,19 @@
     "text": "Irene"
   },
   "text": {
-    "more": "network visualisation of 2020",
-    "intro": "network visualisation of 2020",
+    "more": "Network Visualisation of 13F Fillings 2021",
+    "intro": "Network Visualisation of 13F Fillings 2021",
     "title": "Betweeness"
   },
   "legend": {
-    "edgeLabel": "Edge description",
+    "edgeLabel": "Amount of stock",
     "colorLabel": "Betweenness Centrality",
-    "nodeLabel": "Node description "
+    "nodeLabel": "Managers and Companies "
   },
   "features": {
     "search": true,
     "groupSelectorAttribute": "Betweenness Centrality",
-    "hoverBehavior": "default"
+    "hoverBehavior": "dim"
   },
   "informationPanel": {
     "groupByEdgeDirection": true,
